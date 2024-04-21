@@ -11,7 +11,7 @@ public partial class Korisnik
 
     public byte[]? PasswordHash { get; set; }
 
-    public int? Uloga { get; set; }
+    public int? UlogaId { get; set; }
 
     public string? Ime { get; set; }
 
@@ -26,4 +26,6 @@ public partial class Korisnik
     public byte[]? PasswordSalt { get; set; }
 
     public virtual ICollection<Porudzbina> Porudzbinas { get; } = new List<Porudzbina>();
+
+    public virtual Uloga? Uloga { get; set; }
 }

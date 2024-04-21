@@ -33,6 +33,8 @@ public partial class SalonTestContext : DbContext
 
     public virtual DbSet<StavkaPorudzbine> StavkaPorudzbines { get; set; }
 
+    public virtual DbSet<Uloga> Ulogas { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=.\\SQLExpress; Database=SalonTest;Trusted_Connection=true;TrustServerCertificate=true;");
@@ -80,10 +82,14 @@ public partial class SalonTestContext : DbContext
             entity.Property(e => e.Telefon)
                 .HasMaxLength(15)
                 .HasColumnName("telefon");
-            entity.Property(e => e.Uloga).HasColumnName("uloga");
+            entity.Property(e => e.UlogaId).HasColumnName("uloga_id");
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
                 .HasColumnName("username");
+
+            entity.HasOne(d => d.Uloga).WithMany(p => p.Korisniks)
+                .HasForeignKey(d => d.UlogaId)
+                .HasConstraintName("FK_Korisnik_Uloga");
         });
 
         modelBuilder.Entity<Lokacija>(entity =>
@@ -221,6 +227,18 @@ public partial class SalonTestContext : DbContext
                 .HasForeignKey(d => d.ProizvodId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Stavka_Porudzbine_Proizvod");
+        });
+
+        modelBuilder.Entity<Uloga>(entity =>
+        {
+            entity.HasKey(e => e.UlogaId).HasName("PK__Uloga__03C8E0D88F2430E4");
+
+            entity.ToTable("Uloga");
+
+            entity.Property(e => e.UlogaId).HasColumnName("uloga_id");
+            entity.Property(e => e.UlogaNaziv)
+                .HasMaxLength(20)
+                .HasColumnName("uloga_naziv");
         });
 
         OnModelCreatingPartial(modelBuilder);
