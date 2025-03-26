@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ERP_SalonNamestaja.Models;
+using ERP_SalonNamestaja.DTO.KategorijaDTO;
 
-namespace ERP_SalonNamestaja.DTO.Prostorija
+namespace ERP_SalonNamestaja.DTO.ProstorijaDTO
 {
-    public class UpdateProstorijaDto
+    public class GetProstorijaDto
     {
         public int ProstorijaId { get; set; }
         public string? NazivPr { get; set; }
-        public virtual ICollection<Kategorija> Kategorijas { get; } = new List<Kategorija>();
+        public List<GetKategorijaDto>? Kategorijas { get; set;}
     }
 }

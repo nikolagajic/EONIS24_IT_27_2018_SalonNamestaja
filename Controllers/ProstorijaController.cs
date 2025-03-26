@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ERP_SalonNamestaja.DTO.Prostorija;
+using ERP_SalonNamestaja.DTO.ProstorijaDTO;
 using ERP_SalonNamestaja.Models;
 using ERP_SalonNamestaja.Services;
 
@@ -30,11 +30,13 @@ namespace ERP_SalonNamestaja.Controllers
             return Ok(await _prostorijaService.GetProstorijaById(id));
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<GetProstorijaDto>>>> AddProstorija(AddProstorijaDto prostorija){
             return Ok(await _prostorijaService.AddProstorija(prostorija));
         }
-
+        
+        [Authorize]
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<List<GetProstorijaDto>>>> UpdateProstorija(UpdateProstorijaDto prostorija){
             var response = await _prostorijaService.UpdateProstorija(prostorija);
@@ -43,6 +45,7 @@ namespace ERP_SalonNamestaja.Controllers
             return Ok(response);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<List<GetProstorijaDto>>>> DeleteProstorija(int id) {
             var response = await _prostorijaService.DeleteProstorija(id);

@@ -23,6 +23,13 @@ builder.Services.AddSwaggerGen(c => {
 });
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IProstorijaService, ProstorijaService>();
+builder.Services.AddScoped<IKategorijaService, KategorijaService>();
+builder.Services.AddScoped<ILokacijaService, LokacijaService>();
+builder.Services.AddScoped<IPorudzbinaService, PorudzbinaService>();
+builder.Services.AddScoped<IStanjeService, StanjeService>();
+builder.Services.AddScoped<IProizvodjacService, ProizvodjacService>();
+builder.Services.AddScoped<IProizvodService, ProizvodService>();
+builder.Services.AddScoped<IStavkaPorudzbineService, StavkaPorudzbineService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddDbContext<SalonTestContext>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
